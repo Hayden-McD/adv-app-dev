@@ -1,12 +1,13 @@
 import React from 'react'
+import { routes } from "../Routes/routePaths";
 
 const Navbar = () => {
   return (
 <ul>
-  <li><a href="default.asp">Example</a></li>
-  <li><a href="news.asp">Example</a></li>
-  <li><a href="contact.asp">Example</a></li>
-  <li><a href="about.asp">Example</a></li>
+  <li><a href={routes.HOME}>Example</a></li>
+  <li><a href={routes.HOME}>Example</a></li>
+  <li><a href={routes.HOME}>Example</a></li>
+  <li><a href={routes.HOME}>Example</a></li>
 </ul>
   )
 }
