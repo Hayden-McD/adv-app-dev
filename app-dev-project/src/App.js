@@ -1,5 +1,9 @@
 import React from 'react';
-import './App.css';
+import './CSS/App.css';
+import { routes } from "./Routes/routePaths"
+const {
+  HOME
+} = routes;
 
 function App() {
   return (
