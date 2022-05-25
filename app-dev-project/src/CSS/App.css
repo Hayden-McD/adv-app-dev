@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.mycontainer {
+  height: 100vh;
+}
+
+.gameContainer {
+  display: flex;
+  padding: 1rem 0;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.game {
+  width: 300px;
+  height: 300px;
+  border: 1px solid black;
+}
