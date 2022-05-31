@@ -1,14 +1,18 @@
 import React, { useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from './AuthContext'
+import { Link, useHistory } from 'react-router-dom';
+import { routes } from "../Routes/routePaths";
 
 const SignupComponent = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { signup, currentUser } = useAuth();
+    const { signup } = useAuth();
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const history = useHistory()
+    const redirect = routes.HOME;
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -20,6 +24,7 @@ const SignupComponent = () => {
             setError('')
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value)
+            history.push(redirect)
         } catch {
             setError('Failed to create an account')
         }
@@ -32,7 +37,6 @@ const SignupComponent = () => {
         <Card.Body>
             <h2 className='text-center mb-4'>Sign Up</h2>
             {error && <Alert variant="danger">{error}</Alert>}
-            {JSON.stringify(currentUser)}
             <Form onSubmit={handleSubmit}>
                 <Form.Group id="email">
                     <Form.Label>Email</Form.Label>
@@ -51,7 +55,7 @@ const SignupComponent = () => {
         </Card.Body>
     </Card>
     <div className='w-100 text-center mt-2'>
-        Already have an account? Login
+        Already have an account? <Link to={routes.LOGIN}> Login </Link>
     </div>
     </>
   )
