@@ -9,7 +9,7 @@ const NavbarComponent = () => {
         <Navbar.Brand href={routes.HOME}>PokerProject</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href={routes.HOME}>Games</Nav.Link>
-          <Nav.Link href={routes.HOME}>How to play?</Nav.Link>
+          <Nav.Link href={routes.SIGNUP}>How to play?</Nav.Link>
           <Nav.Link href={routes.HOME}>Profile</Nav.Link>
         </Nav>
       </Container>
