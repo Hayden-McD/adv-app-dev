@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { Button } from 'react-bootstrap'
 import { routes } from '../Routes/routePaths'
 import { useAuth } from './AuthContext'
@@ -6,23 +6,33 @@ import { useHistory } from 'react-router-dom';
 
 const LogoutButton = () => {
     const [error, setError] = useState()
-    const {currentUser, logout} = useAuth()
+    const {logout, loggedIn} = useAuth()
     const history = useHistory()
-    const redirect = routes.LOGIN
+    const redirect = routes.SIGNUP
 
-    async function handleLogout() {
-        try {
-            setError("")
-            await logout()
-            history.push(redirect)
-        } catch {
-            //Implemented error checking for future use.
-            setError("Failed to log out. Please try again")
-        }
-    }
+    const logoutButton = useCallback(() => {
+        logout();
+        history.replace(redirect)
+    }, [logout])
+    
+    // useEffect(() => {
+    //    if(!currentUser) {
+    //    }
+    // }, [loggedIn])
+
+    // async function handleLogout() {
+    //     try {
+    //         await logout();
+    //     } catch {
+    //         //Implemented error checking for future use.
+    //         setError("Failed to log out. Please try again")
+    //     }
+    // }
 
     return (
-        <Button onClick={handleLogout}> Logout </Button>
+        <>
+           {loggedIn ? (<Button onClick={logoutButton}> Logout </Button>) : (null) }
+        </>
     )
 }
 

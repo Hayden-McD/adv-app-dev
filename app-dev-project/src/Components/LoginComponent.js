@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from './AuthContext';
-import { Link, useHistory } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { routes } from "../Routes/routePaths";
 
 const LoginComponent = () => {
@@ -10,21 +10,10 @@ const LoginComponent = () => {
     const { login } = useAuth();
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const history = useHistory()
-    var redirect = routes.HOME;
 
     async function handleSubmit(e) {
         e.preventDefault()
-
-        try {
-            setError('')
-            setLoading(true)
-            await login(emailRef.current.value, passwordRef.current.value)
-            history.push(redirect)
-        } catch {
-            setError('Failed to sign in')
-        }
-        setLoading(false)
+        login()
     }
 
     return (

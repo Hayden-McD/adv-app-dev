@@ -1,34 +1,34 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from './AuthContext'
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { routes } from "../Routes/routePaths";
+import { useHistory } from 'react-router-dom';
 
 const SignupComponent = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { signup } = useAuth();
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
+    const { signup, error, loading, loggedIn, currentUser } = useAuth();
+    const [passwordError, setPasswordError] = useState(null)
+    
     const history = useHistory()
-    const redirect = routes.HOME;
-
     async function handleSubmit(e) {
         e.preventDefault()
+        setPasswordError(null)
+        const check = new RegExp('/^[A-Za-z0-9]\w{8,}$/') //more than 8 characters
+        console.log(check.test(passwordRef.current.value))
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-            return setError('Passwords do not match')
+            setPasswordError('Passwords do not match')
         }
-
-        try {
-            setError('')
-            setLoading(true)
+        else if(check.test(passwordRef.current.value)) {
+            setPasswordError('Enter A Password of 8 or More Characters')
+        }
+        else {
             await signup(emailRef.current.value, passwordRef.current.value)
-            history.push(redirect)
-        } catch {
-            setError('Failed to create an account')
+            setPasswordError(null)
+            history.push(routes.HOME);
         }
-        setLoading(false)
     }
 
   return (
@@ -36,6 +36,7 @@ const SignupComponent = () => {
     <Card>
         <Card.Body>
             <h2 className='text-center mb-4'>Sign Up</h2>
+            {passwordError && <Alert variant="danger">{passwordError}</Alert>}
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit}>
                 <Form.Group id="email">
