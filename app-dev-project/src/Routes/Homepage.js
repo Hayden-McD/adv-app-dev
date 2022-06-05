@@ -1,6 +1,12 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
-const Homepage = () => {
+const Homepage = ({user}) => {
+  const history = useHistory();
+  if (!user) {
+    return history.push("/login");
+  }
+
   return (
     <div className="container">
       <div className="gameContainer">
