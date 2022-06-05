@@ -37,11 +37,14 @@ const App = () =>  {
       <AuthProvider>
         <Navbar />
         <Switch>
-          <Route exact path={routes.SIGNUP} element={<SignupPage user={user}/>}>
+          <Route exact path={routes.SIGNUP}>
+          <SignupPage user={user}/>
           </Route>
-          <Route exact path={routes.HOME} element={<Homepage user={user}/>}>
+          <Route exact path={routes.HOME}>
+          <Homepage user={user}/>
           </Route>
-          <Route exact path={routes.LOGIN} element={<LoginPage user={user}/>}>
+          <Route exact path={routes.LOGIN}>
+          <LoginPage user={user}/>
           </Route>
         </Switch>
       </AuthProvider>
