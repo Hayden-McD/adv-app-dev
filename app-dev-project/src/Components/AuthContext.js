@@ -1,9 +1,6 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useContext, useEffect, useState } from 'react'
 import { auth } from '../firebase'; 
-import { useHistory } from 'react-router-dom';
-import { routes } from "../Routes/routePaths";
-
 
 const AuthContext = React.createContext()
 
@@ -17,6 +14,7 @@ export function AuthProvider({ children }) {
     const [error, setError] = useState(null)
     const [loggedIn, setLoggedIn] = useState(false);
 
+    //Signup function
     async function signup(email, password) {
         setLoading(true);
         console.log(email, password)
@@ -32,13 +30,13 @@ export function AuthProvider({ children }) {
         }).finally(() => {
             setError(null)
             setLoading(false)
-            setLoggedIn(true);
+            setLoggedIn(true)
         })
         return;
     }
 
+    //Login function
     function login(email, password) {
-
         setLoading(true);
         signInWithEmailAndPassword(auth, email, password).then((User) => {
             setCurrentUser(User);
@@ -46,14 +44,16 @@ export function AuthProvider({ children }) {
             setError(error.message)
             setCurrentUser(null)
             setLoading(false)
+            setLoggedIn(false);
         }).finally(() => {
             setError(null)
             setLoading(false)
-            // history.push(redirect)
+            setLoggedIn(true)
         })
         return { currentUser, error, loading }
     }
 
+    //Logout function
     async function logout() {
         const res = await auth.signOut()
         .then(() => {
@@ -74,8 +74,6 @@ export function AuthProvider({ children }) {
 
         return unsubscribe
     }, [])
-
-
 
     const value = {
         currentUser,

@@ -7,14 +7,22 @@ import { AuthProvider } from './Components/AuthContext'
 import { auth } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
-//Components and pages
+// Pages
 import Homepage from "./Routes/Homepage";
 import SignupPage from "./Routes/SignupPage";
-import Navbar from "./Components/NavbarComponent";
 import LoginPage from "./Routes/LoginPage";
+import HowToPlayPage from "./Routes/HowToPlayPage";
+import ProfilePage from "./Routes/ProfilePage";
+import Error404Page from "./Routes/Error404Page";
+
+// Components
+import Navbar from "./Components/NavbarComponent";
+
+
 
 const App = () =>  {
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
       if (user) {
@@ -45,6 +53,15 @@ const App = () =>  {
           </Route>
           <Route exact path={routes.LOGIN}>
           <LoginPage user={user}/>
+          </Route>
+          <Route exact path={routes.HOWTOPLAY}>
+          <HowToPlayPage user={user}/>
+          </Route>
+          <Route exact path={routes.PROFILE}>
+          <ProfilePage user={user}/>
+          </Route>
+          <Route>
+          <Error404Page/>
           </Route>
         </Switch>
       </AuthProvider>

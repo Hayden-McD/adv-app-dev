@@ -13,8 +13,8 @@ const NavbarComponent = ({ user }) => {
           <Navbar.Collapse>
             <Nav className="me-auto">
               <Nav.Link href={routes.HOME}>Games</Nav.Link>
-              <Nav.Link href={routes.HOME}>How to play?</Nav.Link>
-              <Nav.Link href={routes.HOME}>Profile</Nav.Link>
+              <Nav.Link href={routes.HOWTOPLAY}>How to play?</Nav.Link>
+              <Nav.Link href={routes.PROFILE}>Profile</Nav.Link>
             </Nav>
             <Nav>
               <LogoutButton />

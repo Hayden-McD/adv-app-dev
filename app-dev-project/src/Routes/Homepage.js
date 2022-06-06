@@ -55,8 +55,7 @@ const Homepage = ({user}) => {
           </div>
         </div>
       </div>
-        );
-  }
+        )}
 };
 
 export default Homepage;

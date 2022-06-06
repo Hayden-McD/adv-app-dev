@@ -11,8 +11,9 @@ const SignupComponent = () => {
     const passwordConfirmRef = useRef();
     const { signup, error, loading, loggedIn, currentUser } = useAuth();
     const [passwordError, setPasswordError] = useState(null)
-    
     const history = useHistory()
+
+    
     async function handleSubmit(e) {
         e.preventDefault()
         setPasswordError(null)
