@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import LoginComponent from "../Components/LoginComponent";
 
-const LoginPage = ({ user }) => {
+const LoginPage = () => {
   return (
     <Container
       className="d-felx align-items-center justify-content-center"

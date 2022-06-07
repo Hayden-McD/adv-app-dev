@@ -1,7 +1,8 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useCallback } from 'react'
 import { auth } from '../firebase'; 
-
+import { useHistory } from 'react-router-dom';
+import { routes } from '../Routes/routePaths';
 const AuthContext = React.createContext()
 
 export function useAuth() {
@@ -13,14 +14,16 @@ export function AuthProvider({ children }) {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
     const [loggedIn, setLoggedIn] = useState(false);
-
+    const history = useHistory()
     //Signup function
     async function signup(email, password) {
         setLoading(true);
-        console.log(email, password)
         await createUserWithEmailAndPassword(auth, email, password)
         .then((User) => {
             setCurrentUser(User);
+            setError(null)
+            setLoading(false)
+            setLoggedIn(true)
         })
         .catch((error) => {
             setError(error.message)
@@ -28,11 +31,8 @@ export function AuthProvider({ children }) {
             setLoading(false)
             setLoggedIn(false)
         }).finally(() => {
-            setError(null)
-            setLoading(false)
-            setLoggedIn(true)
+            history.replace(routes.HOME)
         })
-        return;
     }
 
     //Login function
@@ -66,15 +66,6 @@ export function AuthProvider({ children }) {
         return;
     }
 
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser(user)
-            setLoading(false)
-        })
-
-        return unsubscribe
-    }, [])
-
     const value = {
         currentUser,
         login,
@@ -87,7 +78,7 @@ export function AuthProvider({ children }) {
 
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {children}
         </AuthContext.Provider>
     )
 }

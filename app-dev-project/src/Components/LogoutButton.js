@@ -10,10 +10,10 @@ const LogoutButton = () => {
     const history = useHistory()
     const redirect = routes.SIGNUP
 
-    const logoutButton = useCallback(() => {
-        logout();
-        history.replace(redirect)
-    }, [logout])
+    // const logoutButton = useCallback(() => {
+    //     logout();
+    //     history.replace(redirect)
+    // }, [logout])
     
     // useEffect(() => {
     //    if(!currentUser) {
@@ -31,7 +31,7 @@ const LogoutButton = () => {
 
     return (
         <>
-           {loggedIn ? (<Button onClick={logoutButton}> Logout </Button>) : (null) }
+           {/* {loggedIn ? (<Button onClick={logoutButton}> Logout </Button>) : (null) } */}
         </>
     )
 }

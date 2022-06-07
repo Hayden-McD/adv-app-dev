@@ -3,15 +3,13 @@ import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from './AuthContext'
 import { Link } from 'react-router-dom';
 import { routes } from "../Routes/routePaths";
-import { useHistory } from 'react-router-dom';
 
 const SignupComponent = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { signup, error, loading, loggedIn, currentUser } = useAuth();
+    const { signup, error, loading } = useAuth();
     const [passwordError, setPasswordError] = useState(null)
-    const history = useHistory()
 
     
     async function handleSubmit(e) {
@@ -28,8 +26,8 @@ const SignupComponent = () => {
         else {
             await signup(emailRef.current.value, passwordRef.current.value)
             setPasswordError(null)
-            history.push(routes.HOME);
         }
+        return
     }
 
   return (
