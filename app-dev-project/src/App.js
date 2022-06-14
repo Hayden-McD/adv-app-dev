@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/App.css";
-import { routes } from "./Routes/routePaths";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "./Components/AuthContext";
 

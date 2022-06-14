@@ -1,37 +1,23 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React from 'react'
 import { Button } from 'react-bootstrap'
-import { routes } from '../Routes/routePaths'
 import { useAuth } from './AuthContext'
+import { signOut } from 'firebase/auth'
+import { auth } from '../firebase'
 import { useHistory } from 'react-router-dom';
-
+import { routes } from '../Routes/routePaths';
 const LogoutButton = () => {
-    const [error, setError] = useState()
-    const {logout, loggedIn} = useAuth()
-    const history = useHistory()
-    const redirect = routes.SIGNUP
-
-    // const logoutButton = useCallback(() => {
-    //     logout();
-    //     history.replace(redirect)
-    // }, [logout])
-    
-    // useEffect(() => {
-    //    if(!currentUser) {
-    //    }
-    // }, [loggedIn])
-
-    // async function handleLogout() {
-    //     try {
-    //         await logout();
-    //     } catch {
-    //         //Implemented error checking for future use.
-    //         setError("Failed to log out. Please try again")
-    //     }
-    // }
-
+    const { superSetLoggedIn, setCurrentUser, setLoggedIn } = useAuth()
+    const history = useHistory();
     return (
         <>
-           {/* {loggedIn ? (<Button onClick={logoutButton}> Logout </Button>) : (null) } */}
+            {superSetLoggedIn && <Button onClick={(async() => {
+                await signOut(auth)
+                .then((res) => {
+                    setCurrentUser(null);
+                    setLoggedIn(false);
+                    history.replace(routes.LOGIN);
+                }).catch(err => { console.log(err) })
+            })}>Logout</Button>}
         </>
     )
 }
