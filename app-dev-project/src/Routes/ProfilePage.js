@@ -1,15 +1,14 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useAuth } from "../Components/AuthContext";
+import LoadingPage from "./LoadingPage";
 
 const ProfilePage = () => {
-  // const history = useHistory();
+  const { loggedIn } = useAuth();
 
-  // if (!user) {
-  //   return history.push("/login");
-  // } else {
-    return ( 
-    <div>ProfilePage</div>
-    )}
+  return (
+    loggedIn ? <div>ProfilePage</div> : <LoadingPage />
+  )
 
+}
 
 export default ProfilePage;

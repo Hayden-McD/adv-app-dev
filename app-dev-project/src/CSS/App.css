@@ -55,3 +55,21 @@
   height: 300px;
   border: 1px solid black;
 }
+
+.loading-spinner {
+  width: 99vw;
+  height: 94.2vh;
+  align-items: center;
+  display: flex;
+}
+
+.spinner-div {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.loading-text {
+  margin-top: 100px;
+  margin-left: -9px;
+}

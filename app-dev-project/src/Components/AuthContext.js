@@ -42,6 +42,7 @@ export function AuthProvider({ children }) {
             else {
                 setCurrentUser(null);
                 setLoggedIn(false);
+                history.replace(routes.LOGIN)
             }
             setError(null);
         }, (err) => {
@@ -80,7 +81,7 @@ export function AuthProvider({ children }) {
         loggedIn,
         superSetLoggedIn,
         setCurrentUser,
-        setLoggedIn
+        setLoggedIn,
     }
 
     return (

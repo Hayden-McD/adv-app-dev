@@ -1,60 +1,13 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useAuth } from "../Components/AuthContext";
+import HomepageContent from "../Components/HomepageContent";
+import LoadingPage from "./LoadingPage";
 
 const Homepage = () => {
-  const history = useHistory();
-  // if (!user) {
-  //   return history.push("/login");
-  // } else {
+  const { loggedIn } = useAuth();
+
   return (
-    <div className="container">
-      <div className="gameContainer">
-        <div className="game">
-          <div>Game room name</div>
-          <div>Players:</div>
-          <div>Player 1</div>
-          <div>Player 2</div>
-          <div>Player 3</div>
-          <button>Join</button>
-        </div>
-
-        <div className="game">
-          <div>Game room name</div>
-          <div>Players:</div>
-          <div>Player 1</div>
-          <div>Player 2</div>
-          <div>Player 3</div>
-          <button>Join</button>
-        </div>
-
-        <div className="game">
-          <div>Game room name</div>
-          <div>Players:</div>
-          <div>Player 1</div>
-          <div>Player 2</div>
-          <div>Player 3</div>
-          <button>Join</button>
-        </div>
-
-        <div className="game">
-          <div>Game room name</div>
-          <div>Players:</div>
-          <div>Player 1</div>
-          <div>Player 2</div>
-          <div>Player 3</div>
-          <button>Join</button>
-        </div>
-
-        <div className="game">
-          <div>Game room name</div>
-          <div>Players:</div>
-          <div>Player 1</div>
-          <div>Player 2</div>
-          <div>Player 3</div>
-          <button>Join</button>
-        </div>
-      </div>
-    </div>
+    loggedIn ? <HomepageContent /> : <LoadingPage />
   )
 }
 

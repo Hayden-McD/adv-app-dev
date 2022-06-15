@@ -1,16 +1,12 @@
-import React from 'react'
-import { useHistory } from "react-router-dom";
+import LoadingPage from './LoadingPage';
+import { useAuth } from "../Components/AuthContext";
 
 const HowToPlayPage = () => {
-  // const history = useHistory();
+  const { loggedIn } = useAuth();
 
-  // if (!user) {
-  //   return history.push("/login");
-  // } else {
   return (
-    <div>HowToPlayPage</div>
+    loggedIn ? <div>HowToPlayPage</div> : <LoadingPage />
   )
 }
-
 
 export default HowToPlayPage
