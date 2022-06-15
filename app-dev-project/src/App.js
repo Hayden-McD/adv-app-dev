@@ -12,7 +12,6 @@ import HowToPlayPage from "./Routes/HowToPlayPage";
 import ProfilePage from "./Routes/ProfilePage";
 import Error404Page from "./Routes/Error404Page";
 import CreateGamePage from "./Routes/CreateGamePage";
-import LoadingPage from "./Routes/LoadingPage";
 
 // Components
 import Navbar from "./Components/NavbarComponent";

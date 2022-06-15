@@ -1,14 +1,13 @@
 import React from 'react'
-import { Container } from 'react-bootstrap'
-import SignupComponent from '../Components/SignupComponent'
+import { useAuth } from "../Components/AuthContext";
+import SignupPageContents from '../PageContents/SignupPageContents';
+import LoadingPage from './LoadingPage';
 
 const SignupPage = () => {
+  const { loggedIn } = useAuth()
+
   return (
-      <Container className="d-felx align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
-        <div className="w-80">
-          <SignupComponent />
-        </div>
-      </Container>
+    !loggedIn ? <SignupPageContents /> : <LoadingPage />
   )
 }
 

@@ -42,7 +42,6 @@ export function AuthProvider({ children }) {
             else {
                 setCurrentUser(null);
                 setLoggedIn(false);
-                history.replace(routes.LOGIN)
             }
             setError(null);
         }, (err) => {
@@ -68,7 +67,9 @@ export function AuthProvider({ children }) {
             history.replace(routes.HOME)
         }).catch(error => {
             setError(error.message)
-        })
+        }).finally(
+            setLoading(false)
+        )
         return;
     }
 

@@ -5,12 +5,14 @@ import { useAuth } from '../Components/AuthContext';
 const GamePage = () => {
   const history = useHistory();
   const { loggedIn } = useAuth();
-  if (!loggedIn) {
-    return history.push("/login");
-  } else {
+  const history = useHistory();
+
+  if(!loggedIn) {
+    history.replace(routes.LOGIN)
+  }
     return (
     <h2>GamePage</h2>
-    )}
+    )
 }
 
 export default GamePage
