@@ -22,6 +22,7 @@ export function AuthProvider({ children }) {
         .then((res) => {
             console.log(res)
             setLoading(false);
+            setLoggedIn(true);
             history.replace(routes.HOME)
         })
         .catch((error) => {
@@ -64,12 +65,12 @@ export function AuthProvider({ children }) {
         setLoading(true);
         const res = await signInWithEmailAndPassword(auth, email, password)
         .then(() => {
+            setLoggedIn(true)
+            setLoading(false)
             history.replace(routes.HOME)
         }).catch(error => {
             setError(error.message)
-        }).finally(
-            setLoading(false)
-        )
+        })
         return;
     }
 

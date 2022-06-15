@@ -3,17 +3,14 @@ import { useAuth } from "../Components/AuthContext";
 import HomepageContent from "../PageContents/HomepageContent";
 import LoadingPage from "./LoadingPage";
 import { useHistory } from "react-router-dom";
-import { routes } from "./routePaths";
+import { loggedin_allowed, routes } from "./routePaths";
 
 const Homepage = () => {
   const { loggedIn } = useAuth();
   const history = useHistory();
 
-  if(!loggedIn) {
-    history.replace(routes.SIGNUP)
-  }
   return (
-    loggedIn ? <HomepageContent /> : <LoadingPage />
+    loggedIn && loggedin_allowed.includes(history.location.pathname) ? <HomepageContent /> : history.replace(routes.LOGIN)
   )
 }
 

@@ -2,18 +2,17 @@ import React from 'react'
 import CreateGameComponent from '../Components/CreateGameComponent'
 import { useAuth } from "../Components/AuthContext";
 import LoadingPage from './LoadingPage';
-import { routes } from './routePaths';
+import { loggedin_allowed, routes } from './routePaths';
 import { useHistory } from 'react-router-dom';
 
 const CreateGamePage = () => {
   const { loggedIn } = useAuth();
   const history = useHistory();
 
-  if(!loggedIn) {
-    history.replace(routes.LOGIN)
-  }
+  console.log(loggedIn)
+
   return (
-    loggedIn ? <CreateGameComponent /> : <LoadingPage />
+    loggedIn && loggedin_allowed.includes(history.location.pathname) ? <CreateGameComponent /> : history.replace(routes.LOGIN)
   )
 }
 
