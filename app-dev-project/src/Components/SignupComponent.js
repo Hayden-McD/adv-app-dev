@@ -13,7 +13,6 @@ const SignupComponent = () => {
     const auth = getAuth();
     const history = useHistory();
 
-    
     async function handleSubmit(e) {
         e.preventDefault()
         setPasswordError(null)
@@ -35,8 +34,8 @@ const SignupComponent = () => {
     async function signup(email, password) {
         //setLoading(true);
         await createUserWithEmailAndPassword(auth, email, password)
-        .then((res) => {
-            console.log("logged in")
+        .then((userCredential) => {
+            const user = userCredential.user;
             history.replace(routes.HOME)
         })
         .catch((error) => {

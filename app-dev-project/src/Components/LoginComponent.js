@@ -18,7 +18,8 @@ const LoginComponent = () => {
 
   async function login(email, password) {
     const res = await signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then((userCredential) => {
+        const user = userCredential.user;
         history.replace(routes.HOME)
       }).catch(error => {
         const errorCode = error.code;

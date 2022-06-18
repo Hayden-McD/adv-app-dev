@@ -1,13 +1,29 @@
-import LoadingPage from './LoadingPage';
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { loggedin_allowed, routes } from "./routePaths";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const HowToPlayPage = () => {
   const history = useHistory();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const auth = getAuth();
+  const user = auth.currentUser
 
-  return (
-    <div>HowToPlayPage</div>
-  )
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  });
+
+
+  if (user) {
+    return (
+      <div>HowToPlayPage</div>
+    )
+  } else {
+    //redirect
+  }
 }
 
 export default HowToPlayPage

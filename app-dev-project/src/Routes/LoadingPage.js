@@ -1,6 +1,8 @@
 import CircleLoader from "react-spinners/CircleLoader";
 
 const LoadingPage = () => {
+console.log("loading page has loaded")
+
   return (
     <div className="loading-spinner">
       <div className="spinner-div">
