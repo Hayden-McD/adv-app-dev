@@ -1,30 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import SignupPageContents from '../PageContents/SignupPageContents';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useHistory } from 'react-router-dom';
-import { routes } from './routePaths';
+import { auth } from '../firebase';
+
 
 const SignupPage = () => {
-  const history = useHistory();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const auth = getAuth();
   const user = auth.currentUser
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  });
-
-
-  if (!user) {
+  if (user) {
     return (
       <SignupPageContents />
     )
   } else {
-    //redirect
+
   }
 }
 

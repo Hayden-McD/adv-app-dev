@@ -2,13 +2,13 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { routes } from "../Routes/routePaths";
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useHistory } from 'react-router-dom';
+import { auth } from '../firebase';
 
 const LoginComponent = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const auth = getAuth();
   const history = useHistory();
 
   async function handleSubmit(e) {
@@ -18,8 +18,7 @@ const LoginComponent = () => {
 
   async function login(email, password) {
     const res = await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+      .then(() => {
         history.replace(routes.HOME)
       }).catch(error => {
         const errorCode = error.code;

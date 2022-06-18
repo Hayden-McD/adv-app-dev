@@ -27,7 +27,6 @@ const NavbarComponent = () => {
               <Nav.Link href={routes.HOME}>Games</Nav.Link>
               <Nav.Link href={routes.CREATEGAME}>Create Game</Nav.Link>
               <Nav.Link href={routes.HOWTOPLAY}>How to play?</Nav.Link>
-              <Nav.Link href={routes.PROFILE}>Profile</Nav.Link>
             </Nav>
             <Nav>
               <LogoutButton />
