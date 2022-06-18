@@ -52,7 +52,6 @@ const SignupComponent = () => {
         <Card.Body>
             <h2 className='text-center mb-4'>Sign Up</h2>
             {passwordError && <Alert variant="danger">{passwordError}</Alert>}
-            {/* {error && <Alert variant="danger">{error}</Alert>} */}
             <Alert variant="danger"></Alert>
             <Form onSubmit={handleSubmit}>
                 <Form.Group id="email">

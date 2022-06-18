@@ -8,7 +8,6 @@ import Homepage from "./Routes/Homepage";
 import SignupPage from "./Routes/SignupPage";
 import LoginPage from "./Routes/LoginPage";
 import HowToPlayPage from "./Routes/HowToPlayPage";
-import ProfilePage from "./Routes/ProfilePage";
 import Error404Page from "./Routes/Error404Page";
 import CreateGamePage from "./Routes/CreateGamePage";
 
@@ -38,11 +37,6 @@ const App = () => {
           {/* Route for log in page */}
           <Route exact path="/how">
             <HowToPlayPage />
-          </Route>
-
-          {/* Route for the user profile page */}
-          <Route exact path="/profile">
-            <ProfilePage />
           </Route>
 
           {/* Route for creating a game */}

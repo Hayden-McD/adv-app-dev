@@ -19,7 +19,7 @@ const LoginPage = () => {
       }
     });
 
-    if (user) {
+    if (!user) {
       return (
         <LoginPageContents />
       )
