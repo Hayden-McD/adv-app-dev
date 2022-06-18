@@ -2,7 +2,6 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { AuthProvider } from "./Components/AuthContext";
 
 // Pages
 import Homepage from "./Routes/Homepage";
@@ -19,7 +18,6 @@ import Navbar from "./Components/NavbarComponent";
 const App = () => {
   return (
     <Router>
-      <AuthProvider>
         <Navbar />
         <Switch>
           {/* Route for sign up page */}
@@ -57,7 +55,6 @@ const App = () => {
             <Error404Page />
           </Route>
         </Switch>
-      </AuthProvider>
     </Router>
   );
 };

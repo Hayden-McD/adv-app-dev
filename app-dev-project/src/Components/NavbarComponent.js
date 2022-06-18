@@ -2,16 +2,13 @@ import React from "react";
 import { routes } from "../Routes/routePaths";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import LogoutButton from "./LogoutButton";
-import { useAuth } from "./AuthContext";
 
 const NavbarComponent = () => {
-  const { currentUser } = useAuth();
 
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
         <Navbar.Brand href={routes.HOME}>PokerProject</Navbar.Brand>
-        {currentUser ? (
           /* User must be logged in to see these links in the navbar */
           <Navbar.Collapse>
             <Nav className="me-auto">
@@ -24,7 +21,7 @@ const NavbarComponent = () => {
               <LogoutButton />
             </Nav>
           </Navbar.Collapse>
-        ) : (
+
           /* User must be logged out to see these links in the navbar */
           <Navbar.Collapse>
             <Nav>
@@ -32,7 +29,7 @@ const NavbarComponent = () => {
               <Nav.Link href={routes.SIGNUP}>signup</Nav.Link>
             </Nav>
           </Navbar.Collapse>
-        )}
+
       </Container>
     </Navbar>
   );

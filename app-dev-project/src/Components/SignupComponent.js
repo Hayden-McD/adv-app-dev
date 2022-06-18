@@ -1,15 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
-import { useAuth } from './AuthContext'
 import { Link } from 'react-router-dom';
 import { routes } from "../Routes/routePaths";
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { useHistory } from 'react-router-dom';
 
 const SignupComponent = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { signup, error, loading } = useAuth();
     const [passwordError, setPasswordError] = useState(null)
+    const auth = getAuth();
+    const history = useHistory();
 
     
     async function handleSubmit(e) {
@@ -30,13 +32,29 @@ const SignupComponent = () => {
         return
     }
 
+    async function signup(email, password) {
+        //setLoading(true);
+        await createUserWithEmailAndPassword(auth, email, password)
+        .then((res) => {
+            console.log("logged in")
+            history.replace(routes.HOME)
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode)
+            console.log(errorMessage)
+        });
+    }
+
   return (
     <>
     <Card>
         <Card.Body>
             <h2 className='text-center mb-4'>Sign Up</h2>
             {passwordError && <Alert variant="danger">{passwordError}</Alert>}
-            {error && <Alert variant="danger">{error}</Alert>}
+            {/* {error && <Alert variant="danger">{error}</Alert>} */}
+            <Alert variant="danger"></Alert>
             <Form onSubmit={handleSubmit}>
                 <Form.Group id="email">
                     <Form.Label>Email</Form.Label>
@@ -50,7 +68,8 @@ const SignupComponent = () => {
                     <Form.Label>Confirm password</Form.Label>
                     <Form.Control type="password" ref={passwordConfirmRef} required />
                 </Form.Group>
-                <Button disabled={loading} className='w-100' type="submit">Sign up</Button>
+                {/* <Button disabled={loading} className='w-100' type="submit">Sign up</Button> */}
+                <Button className='w-100' type="submit">Sign up</Button>
             </Form>
         </Card.Body>
     </Card>
