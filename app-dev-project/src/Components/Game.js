@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import { query, onSnapshot, doc, getDoc, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import React, { useCallback } from 'react'
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 
 const Game = ({ game }) => {
@@ -10,34 +10,37 @@ const Game = ({ game }) => {
     playerIds.push(ex)
   });
 
-  console.log(game.id)
-  console.log(playerIds)
-
   function joinGame() {
     if (playerIds.includes(auth.currentUser.uid)) {
-      console.log("you are in the game already")
+      console.log("User is already in the game")
     } else {
-      playerIds.push(auth.currentUser.uid)
-      console.log(playerIds)
-
-      //append userid games/gameid/players
       updateDoc(doc(db, 'Games', game.id), {
-        players: arrayUnion(auth.currentUser.uid)
-    });
-    console.log("you have been added to the game")
+        players: arrayUnion(auth.currentUser.displayName)
+      });
+      console.log("User has Joined the game")
     }
   }
 
   return (
     <>
-      {!game.gameOver && 
-      <div className="game">
-        <div className="gameName">
-          {game.gameName}
-          {/* players componet */}
-        </div>
-        <button onClick={joinGame}>Join</button>
-      </div>}
+      {!game.gameOver &&
+        <div className="game">
+          <div className="gameName">
+            {game.gameName}
+          </div>
+          <div className="gamePlayers">
+            <div>Players: </div>
+          {
+              playerIds.map((playerId) => {
+                return (
+                  // Change this to display name.
+                  <p key={playerId}>{playerId}</p>
+                )
+              })
+            }
+          </div>
+          <button onClick={joinGame}>Join</button>
+        </div>}
     </>
   )
 }

@@ -21,7 +21,7 @@ const CreateGameComponent = () => {
         createdBy: user.displayName,
         joinable: true,
         gameOver: false,
-        players: [user.uid]
+        players: [user.displayName]
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
