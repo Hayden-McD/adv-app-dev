@@ -1,35 +1,50 @@
-import React, { useEffect, useState } from 'react'
-import { collection, doc, getDoc, onSnapshot, query  } from 'firebase/firestore'
+import React, { useEffect, useState, useCallback } from 'react'
+import { collection, doc, getDoc, getDocs, onSnapshot, query } from 'firebase/firestore'
 import { db } from '../firebase'
-import Game from '../Components/Game'
+import Game from '../Components/Game';
+import LoadingPage from "../Routes/LoadingPage"
 
 const HomepageContent = () => {
-  const [games, setGames] = useState([])
-  
-  useEffect(() => {
-    const q = query(collection(db, "Games"))
-    const unsub = onSnapshot(q, (querySnapshot) => {
-      let gamesArray = []
-      querySnapshot.forEach((doc) => {
-        gamesArray.push({ ...doc.data(), id: doc.id})
+  const [games, setGames] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const getGame = useCallback(async () => {
+    let gamesArray = []
+    const q = query(collection(db, "Games"));
+    await getDocs(q).then((res) => {
+      res.forEach((doc) => {
+        gamesArray.push({ ...doc.data(), id: doc.id })
       })
-      setGames(gamesArray)
     })
-    return () => unsub()
+      .catch((err) => {
+        console.log(err)
+      });
+    setIsLoading(false);
+    setGames(gamesArray);
+    return;
   }, [])
 
+  useEffect(() => {
+    getGame()
+  }, [getGame])
+
   return (
-    <div className="container">
-    <div className="gameContainer">
-      {
-        games.map((game, index) => {
-          return (
-            <Game game={game} key={index}/>
-          )
-        })
+    <>
+      {isLoading ?
+        <LoadingPage /> :
+        <div className='container'>
+          <div className='gameContainer'>
+            {
+              games.map((game, index) => {
+                return (
+                  <Game game={game} key={index} />
+                )
+              })
+            }
+          </div>
+        </div>
       }
-    </div>
-  </div>
+    </>
   )
 }
 

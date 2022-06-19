@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
-import { collection, addDoc, DocumentReference } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase"
 import { getAuth } from 'firebase/auth';
 
@@ -14,12 +14,14 @@ const CreateGameComponent = () => {
   async function handleSubmit(e) {
     e.preventDefault()
     try {
-      const docRef = await addDoc(collection(db, "OpenGames"), {
+      const docRef = await addDoc(collection(db, "Games"), {
         gameName: nameRef.current.value,
         passwordEnabled: enablePasswordRef.current.value,
         password: passwordRef.current.value,
         createdBy: user.displayName,
-        joinable: true
+        joinable: true,
+        gameOver: false,
+        players: [user.uid]
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {

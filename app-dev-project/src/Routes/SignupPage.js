@@ -6,7 +6,7 @@ import { auth } from '../firebase';
 const SignupPage = () => {
   const user = auth.currentUser
 
-  if (user) {
+  if (!user) {
     return (
       <SignupPageContents />
     )
