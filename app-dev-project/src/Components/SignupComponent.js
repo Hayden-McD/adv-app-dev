@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { routes } from "../Routes/routePaths";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useHistory } from 'react-router-dom';
-import { collection, setDoc, doc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { db } from "../firebase"
 
 const SignupComponent = () => {
@@ -53,18 +53,13 @@ const SignupComponent = () => {
             })
     }
 
-    async function addUserToDB() {
-        try {
-            const docRef = await setDoc(doc(db, 'Users', auth.currentUser.uid), {
-                displayName: auth.currentUser.displayName,
-                uid: auth.currentUser.uid,
-                email: auth.currentUser.email,
-                gamesWon: 0
-            });
-            console.log("Document written with ID: ");
-        } catch (e) {
-            console.error("Error adding document: ", e);
-        }
+    function addUserToDB() {
+        setDoc(doc(db, 'Users', auth.currentUser.uid), {
+            displayName: displayNameRef.current.value,
+            uid: auth.currentUser.uid,
+            email: auth.currentUser.email,
+            gamesWon: 0
+        });
     }
 
     return (
