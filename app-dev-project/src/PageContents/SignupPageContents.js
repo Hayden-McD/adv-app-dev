@@ -2,11 +2,11 @@ import React from 'react'
 import SignupComponent from '../Components/SignupComponent'
 import { Container } from 'react-bootstrap'
 
-const SignupPageContents = () => {
+const SignupPageContents = (props) => {
     return (
-        <Container className="d-felx align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+        <Container className="align-items-center justify-content-center">
           <div className="w-80">
-            <SignupComponent />
+            <SignupComponent props={props} />
           </div>
         </Container>
   )

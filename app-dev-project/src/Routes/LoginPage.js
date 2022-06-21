@@ -1,17 +1,22 @@
-import React from "react";
-import LoginPageContents from "../PageContents/LoginPageContents";
-import { auth } from "../firebase";
+import React from 'react';
+import LoginPageContents from '../PageContents/LoginPageContents';
 
-const LoginPage = () => {
-    const user = auth.currentUser
-
-    if (!user) {
-      return (
-        <LoginPageContents />
-      )
-    } else {
-
-    }
+const LoginPage = ({
+    authError,
+    isLoggedIn,
+    setUser,
+    setIsLoggedIn,
+    setAuthError,
+}) => {
+    return (
+        <LoginPageContents
+            authError={authError}
+            isLoggedIn={isLoggedIn}
+            setUser={setUser}
+            setIsLoggedIn={setIsLoggedIn}
+            setAuthError={setAuthError}
+        />
+    );
 };
 
 export default LoginPage;

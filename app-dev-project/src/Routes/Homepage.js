@@ -5,22 +5,22 @@ import { onAuthStateChanged } from "firebase/auth";
 
 const Homepage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState();
-  const user = auth.currentUser
+  const [user, setUser] = useState(null);
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setIsLoggedIn(true);
+      setUser(user.currentUser);
     } else {
       setIsLoggedIn(false);
+      setUser(null);
     }
   });
 
-  if (user) {
+  if (isLoggedIn) {
     return (
-      <HomepageContent />
+      <HomepageContent user={user}/>
     )
-  } else {
-    //redirect
   }
 }
 
