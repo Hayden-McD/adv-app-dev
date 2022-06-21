@@ -40,7 +40,14 @@ const App = () => {
 
   return (
       <Router>
-          <Navbar />
+          <Navbar
+              authError={authError}
+              isLoggedIn={isLoggedIn}
+              auth={auth}
+              user={user}
+              setUser={setUser}
+              setIsLoggedIn={setIsLoggedIn}
+          />
           <Switch>
               {/* Route for sign up page */}
               <Route exact path='/signup'>
@@ -51,6 +58,7 @@ const App = () => {
                       setIsLoggedIn={setIsLoggedIn}
                       setAuthError={setAuthError}
                       auth={auth}
+                      user={user}
                   />
               </Route>
 

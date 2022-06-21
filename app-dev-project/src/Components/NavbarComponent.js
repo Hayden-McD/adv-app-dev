@@ -1,27 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { routes } from "../Routes/routePaths";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import LogoutButton from "./LogoutButton";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-const NavbarComponent = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const auth = getAuth();
-  const user = auth.currentUser
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  });
+const NavbarComponent = ({user, isLoggedIn, authError, setUser, setIsLoggedIn, auth}) => {
 
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
         <Navbar.Brand href={routes.HOME}>PokerProject</Navbar.Brand>
-        {user ? (
+        {isLoggedIn ? (
           <Navbar.Collapse>
             <Nav className="me-auto">
               <Nav.Link href={routes.HOME}>Games</Nav.Link>
@@ -29,7 +17,7 @@ const NavbarComponent = () => {
               <Nav.Link href={routes.HOWTOPLAY}>How to play?</Nav.Link>
             </Nav>
             <Nav>
-              <LogoutButton />
+              <LogoutButton setUser={setUser} setIsLoggedIn={setIsLoggedIn} auth={auth} />
             </Nav>
           </Navbar.Collapse>
         ) : (

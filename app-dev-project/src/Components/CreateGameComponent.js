@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../firebase"
+import React, { useRef } from 'react';
+import { Form, Button, Card, Alert } from 'react-bootstrap';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const CreateGameComponent = ({ authError, isLoggedIn, user, auth }) => {
     const nameRef = useRef();
@@ -27,8 +27,8 @@ const CreateGameComponent = ({ authError, isLoggedIn, user, auth }) => {
     }
 
     return (
-        <Card className='d-felx align-items-center justify-content-center'>
-            {isLoggedIn ? <Card.Body>
+        <Card className='align-items-center justify-content-center'>
+            <Card.Body>
                 <h2 className='text-center mb-4'>Create a game</h2>
                 {authError && <Alert variant='danger'>{authError}</Alert>}
                 <Form onSubmit={handleSubmit}>
@@ -36,13 +36,10 @@ const CreateGameComponent = ({ authError, isLoggedIn, user, auth }) => {
                         <Form.Label>Game Name:</Form.Label>
                         <Form.Control ref={nameRef} required />
                     </Form.Group>
-
-                    {/*  */}
                     <Form.Group id='password-switch'>
                         <Form.Label>Enable Password?</Form.Label>
                         <Form.Check type='switch' ref={enablePasswordRef} />
                     </Form.Group>
-
                     <Form.Group id='password'>
                         <Form.Label>Password:</Form.Label>
                         <Form.Control type='password' ref={passwordRef} />
@@ -51,7 +48,7 @@ const CreateGameComponent = ({ authError, isLoggedIn, user, auth }) => {
                         Create Game
                     </Button>
                 </Form>
-            </Card.Body> : <Card.Body> Please Login </Card.Body>}
+            </Card.Body>
         </Card>
     );
 };

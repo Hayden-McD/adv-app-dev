@@ -9,6 +9,7 @@ const SignupPageContents = ({
     setIsLoggedIn,
     setAuthError,
     auth,
+    user
 }) => {
     return (
         <Container className='align-items-center justify-content-center'>
@@ -20,6 +21,7 @@ const SignupPageContents = ({
                     setIsLoggedIn={setIsLoggedIn}
                     setAuthError={setAuthError}
                     auth={auth}
+                    user={user}
                 />
             </div>
         </Container>

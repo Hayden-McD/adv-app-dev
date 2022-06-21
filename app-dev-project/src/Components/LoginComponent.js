@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { routes } from '../Routes/routePaths';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useHistory } from 'react-router-dom';
-import { auth } from '../firebase';
 
 const LoginComponent = ({
     authError,
@@ -12,6 +11,7 @@ const LoginComponent = ({
     setUser,
     setIsLoggedIn,
     setAuthError,
+    auth
 }) => {
     const emailRef = useRef();
     const passwordRef = useRef();

@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import { collection, getDocs, query } from 'firebase/firestore'
-import { db } from '../firebase'
+import React, { useEffect, useState, useCallback } from 'react';
+import { collection, getDocs, query } from 'firebase/firestore';
+import { db } from '../firebase';
 import Game from '../Components/Game';
-import LoadingPage from "../Routes/LoadingPage"
+import LoadingPage from '../Routes/LoadingPage';
 
-const HomepageContent = ({authError, isLoggedIn, user, auth}) => {
+const HomepageContent = ({ authError, isLoggedIn, user, auth }) => {
     const [games, setGames] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -37,7 +37,7 @@ const HomepageContent = ({authError, isLoggedIn, user, auth}) => {
                 <div className='container'>
                     <div className='gameContainer'>
                         {games.map((game, index) => {
-                            return <Game game={game} key={index} />;
+                            return <Game game={game} key={index} auth={auth} />;
                         })}
                     </div>
                 </div>
@@ -46,4 +46,4 @@ const HomepageContent = ({authError, isLoggedIn, user, auth}) => {
     );
 };
 
-export default HomepageContent
+export default HomepageContent;
