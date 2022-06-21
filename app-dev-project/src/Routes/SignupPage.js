@@ -1,18 +1,24 @@
-import React from 'react'
+import React from 'react';
 import SignupPageContents from '../PageContents/SignupPageContents';
-import { auth } from '../firebase';
 
-
-const SignupPage = () => {
-  const user = auth.currentUser
-
-  if (!user) {
+const SignupPage = ({
+    authError,
+    isLoggedIn,
+    setUser,
+    setIsLoggedIn,
+    setAuthError,
+    auth
+}) => {
     return (
-      <SignupPageContents />
-    )
-  } else {
+        <SignupPageContents
+            authError={authError}
+            isLoggedIn={isLoggedIn}
+            setUser={setUser}
+            setIsLoggedIn={setIsLoggedIn}
+            setAuthError={setAuthError}
+            auth={auth}
+        />
+    );
+};
 
-  }
-}
-
-export default SignupPage
+export default SignupPage;
