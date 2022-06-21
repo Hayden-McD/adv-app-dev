@@ -7,6 +7,7 @@ const LoginPage = ({
     setUser,
     setIsLoggedIn,
     setAuthError,
+    auth
 }) => {
     return (
         <LoginPageContents
@@ -15,6 +16,7 @@ const LoginPage = ({
             setUser={setUser}
             setIsLoggedIn={setIsLoggedIn}
             setAuthError={setAuthError}
+            auth={auth}
         />
     );
 };

@@ -1,27 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import HomepageContent from "../PageContents/HomepageContent";
-import { auth } from "../firebase";
-import { onAuthStateChanged } from "firebase/auth";
 
-const Homepage = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState();
-  const [user, setUser] = useState(null);
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setIsLoggedIn(true);
-      setUser(user.currentUser);
-    } else {
-      setIsLoggedIn(false);
-      setUser(null);
-    }
-  });
-
-  if (isLoggedIn) {
+const Homepage = ({
+    authError,
+    isLoggedIn,
+    user,
+    auth,
+}) => {
     return (
-      <HomepageContent user={user}/>
-    )
-  }
-}
+        <HomepageContent
+            authError={authError}
+            isLoggedIn={isLoggedIn}
+            user={user}
+            auth={auth}
+        />
+    );
+};
 
 export default Homepage;

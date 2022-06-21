@@ -50,6 +50,7 @@ const App = () => {
                       setUser={setUser}
                       setIsLoggedIn={setIsLoggedIn}
                       setAuthError={setAuthError}
+                      auth={auth}
                   />
               </Route>
 
@@ -61,6 +62,7 @@ const App = () => {
                       setUser={setUser}
                       setIsLoggedIn={setIsLoggedIn}
                       setAuthError={setAuthError}
+                      auth={auth}
                   />
               </Route>
 
@@ -70,6 +72,7 @@ const App = () => {
                       authError={authError}
                       isLoggedIn={isLoggedIn}
                       user={user}
+                      auth={auth}
                   />
               </Route>
 
@@ -79,6 +82,7 @@ const App = () => {
                       authError={authError}
                       isLoggedIn={isLoggedIn}
                       user={user}
+                      auth={auth}
                   />
               </Route>
 
@@ -88,6 +92,7 @@ const App = () => {
                       authError={authError}
                       isLoggedIn={isLoggedIn}
                       user={user}
+                      auth={auth}
                   />
               </Route>
 
