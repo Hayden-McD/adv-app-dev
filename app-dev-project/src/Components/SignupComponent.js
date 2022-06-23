@@ -56,8 +56,7 @@ const SignupComponent = ({
                         },
                         { merge: true }
                     );
-                })
-                .finally(() => {
+                }).finally(() => {
                     history.replace(routes.HOME);
                 });
         } catch (error) {
@@ -69,33 +68,33 @@ const SignupComponent = ({
         <>
             <Card>
                 <Card.Body>
-                    <h2 className='text-center mb-4'>Sign Up</h2>
+                    <h2 className='text-center mb-4' data-testid="signupComponent-title">Sign Up</h2>
                     {authError ? (
                         <Alert variant='danger'>{authError}</Alert>
                     ) : null}
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group id='email'>
-                            <Form.Label>Email</Form.Label>
+                        <Form.Group id='email' data-testid="signupComponent-emailInput">
+                            <Form.Label>Email:</Form.Label>
                             <Form.Control
                                 type='email'
                                 ref={emailRef}
                                 required
                             />
                         </Form.Group>
-                        <Form.Group id='displayName'>
+                        <Form.Group id='displayName' data-testid="signupComponent-displayName">
                             <Form.Label>Display Name:</Form.Label>
                             <Form.Control ref={displayNameRef} required />
                         </Form.Group>
-                        <Form.Group id='password'>
-                            <Form.Label>Password</Form.Label>
+                        <Form.Group id='password' data-testid="signupComponent-passwordInput">
+                            <Form.Label>Password:</Form.Label>
                             <Form.Control
                                 type='password'
                                 ref={passwordRef}
                                 required
                             />
                         </Form.Group>
-                        <Form.Group id='password-confirm'>
-                            <Form.Label>Confirm password</Form.Label>
+                        <Form.Group id='password-confirm' data-testid="signupComponent-passwordConfInput">
+                            <Form.Label>Confirm password:</Form.Label>
                             <Form.Control
                                 type='password'
                                 ref={passwordConfirmRef}
@@ -103,13 +102,13 @@ const SignupComponent = ({
                             />
                         </Form.Group>
                         {/* <Button disabled={loading} className='w-100' type="submit">Sign up</Button> */}
-                        <Button className='w-100' type='submit'>
+                        <Button className='w-100' type='submit' data-testid="signupComponent-button">
                             Sign up
                         </Button>
                     </Form>
                 </Card.Body>
             </Card>
-            <div className='w-100 text-center mt-2'>
+            <div className='w-100 text-center mt-2' data-testid="signupComponent-loginText">
                 Already have an account? <Link to={routes.LOGIN}> Login </Link>
             </div>
         </>

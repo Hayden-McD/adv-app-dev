@@ -42,6 +42,7 @@ const HomepageContent = ({ authError, isLoggedIn, user, auth }) => {
         {isLoading ?? <LoadingPage />}
         {gamesReady ?? (
             <div className='gameContainer'>
+                yayaya
                 {games.map((game, index) => {
                     <Game game={game} key={index} auth={auth} />;
                 })}
