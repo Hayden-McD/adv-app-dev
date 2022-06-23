@@ -8,6 +8,7 @@ const LoginPageContents = ({
     setUser,
     setIsLoggedIn,
     setAuthError,
+    auth
 }) => {
     return (
         <Container className='d-felx align-items-center justify-content-center'>
@@ -18,6 +19,7 @@ const LoginPageContents = ({
                     setUser={setUser}
                     setIsLoggedIn={setIsLoggedIn}
                     setAuthError={setAuthError}
+                    auth={auth}
                 />
             </div>
         </Container>

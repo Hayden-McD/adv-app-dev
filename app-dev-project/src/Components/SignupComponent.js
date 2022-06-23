@@ -5,9 +5,17 @@ import { routes } from '../Routes/routePaths';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useHistory } from 'react-router-dom';
 import { setDoc, doc } from 'firebase/firestore';
-import { db, auth } from '../firebase';
+import { db } from '../firebase';
 
-const SignupComponent = ({setAuthError, setUser, isLoggedIn, setIsLoggedIn, authError}) => {
+const SignupComponent = ({
+    setAuthError,
+    setUser,
+    isLoggedIn,
+    setIsLoggedIn,
+    authError,
+    auth,
+    user
+}) => {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
@@ -33,22 +41,23 @@ const SignupComponent = ({setAuthError, setUser, isLoggedIn, setIsLoggedIn, auth
             await createUserWithEmailAndPassword(auth, email, password)
                 .then((User) => {
                     setUser(User.user);
-                    updateProfile(auth.currentUser, {
+                    updateProfile(User.user.uid, {
                         displayName: displayNameRef.current.value,
                     });
                 })
                 .then(() => {
                     setDoc(
-                        doc(db, 'Users', auth.currentUser.uid),
+                        doc(db, 'Users', user.uid),
                         {
                             displayName: displayNameRef.current.value,
-                            uid: auth.currentUser.uid,
-                            email: auth.currentUser.email,
+                            uid: user.uid,
+                            email: user.email,
                             gamesWon: 0,
                         },
                         { merge: true }
                     );
-                }).finally(() => {
+                })
+                .finally(() => {
                     history.replace(routes.HOME);
                 });
         } catch (error) {
