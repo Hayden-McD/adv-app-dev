@@ -3,12 +3,14 @@ import { collection, getDocs, query } from 'firebase/firestore';
 import { db } from '../firebase';
 import Game from '../Components/Game';
 import LoadingPage from '../Routes/LoadingPage';
+import { useHistory } from 'react-router-dom';
 
 const HomepageContent = ({ authError, isLoggedIn, user, auth }) => {
     const [games, setGames] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [gamesReady, setGamesReady] = useState(false);
     const [loadError, setLoadError] = useState(null);
+    const history = useHistory();
 
     const getGame = useCallback(async () => {
         let gamesArray = [];
@@ -28,26 +30,50 @@ const HomepageContent = ({ authError, isLoggedIn, user, auth }) => {
                 setLoadError(err.message);
             })
         await setGames(gamesArray);
-        games.length > 0 ? setGamesReady(true) : setGamesReady(false);
         setIsLoading(false);
         return;
     }, []);
 
     useEffect(() => {
-        getGame();
-    }, [getGame]);
+        if(!isLoggedIn){
+            history.replace('/login');
+        }
+    }, []);
+    
+    useEffect(() => {
+        getGame().then(() => {
+            if(games.length > 0) {
+                setGamesReady(true);
+            }
+            else {
+                setGamesReady(false);
+            }
+        }).catch((err) => {
+            setLoadError(err.message);
+            setGamesReady(false);            
+        });
+    }, [getGame, games]);
 
     return (
-    <div className='container'>
-        {isLoading ?? <LoadingPage />}
-        {gamesReady ?? (
-            <div className='gameContainer'>
-                {games.map((game, index) => {
-                    <Game game={game} key={index} auth={auth} />;
-                })}
-            </div>
-        )}
-    </div>
+        <div className='container'>
+            {isLoading ? (
+                <LoadingPage isLoggedIn={isLoggedIn} />
+            ) : (
+                <div className='gameContainer'>
+                    {games.map((game, index) => {
+                        return (
+                            <Game
+                                game={game}
+                                key={index}
+                                auth={auth}
+                                loadError={loadError}
+                                gamesReady={gamesReady}
+                            />
+                        );
+                    })}
+                </div>
+            )}
+        </div>
     );
 };
 
