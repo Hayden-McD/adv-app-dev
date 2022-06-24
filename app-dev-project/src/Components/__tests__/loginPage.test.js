@@ -1,4 +1,4 @@
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import LoginPage from '../../Routes/LoginPage';
 
@@ -15,8 +15,8 @@ test('Should render login component', () => {
     
     // Elements
     const loginComponentTitle = screen.getByTestId('loginComponent-title');
-    const loginComponentEmail = screen.getByTestId('loginComponent-emailInput');
-    const loginComponentPassword = screen.getByTestId('loginComponent-passwordInput');
+    const loginComponentEmail = screen.getByTestId('loginComponent-email');
+    const loginComponentPassword = screen.getByTestId('loginComponent-password');
     const loginComponentButton = screen.getByTestId('loginComponent-button');
     const loginComponentSignupText = screen.getByTestId('loginComponent-signupText');
 
@@ -25,4 +25,24 @@ test('Should render login component', () => {
     expect(loginComponentPassword).toHaveTextContent('Password');
     expect(loginComponentButton).toHaveTextContent('Log In');
     expect(loginComponentSignupText).toHaveTextContent("Don't have an account? Sign Up");
+});
+
+
+test('Should render login component', () => {
+    const emailInput = "test@gmail.com";
+    const passwordInput = "testpass";
+    render(
+        <Router>
+            <LoginPage />
+        </Router>
+    );
+    
+    // Elements
+    const loginComponentEmail = screen.getByTestId('loginComponent-emailInput');
+    const loginComponentPassword = screen.getByTestId('loginComponent-passwordInput');
+    const loginComponentButton = screen.getByTestId('loginComponent-button');
+
+    fireEvent.change(loginComponentEmail,{target: {value: emailInput}});
+    fireEvent.change(loginComponentPassword,{target: {value: passwordInput}});
+    expect(loginComponentButton).toBeEnabled();
 });

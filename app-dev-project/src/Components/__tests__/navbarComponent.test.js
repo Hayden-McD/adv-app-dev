@@ -23,7 +23,7 @@ test('Should render nav bar not logged in', () => {
         expect(navbarComponentSignup).toHaveTextContent('signup');
 });
 
-test('Should render nav bar logged in', () => {
+test('Can edit login page text inputs', () => {
     const isLoggedIn = true
     render(
         <Router>
@@ -36,9 +36,12 @@ test('Should render nav bar logged in', () => {
         const navbarComponentGames = screen.getByTestId('navbarComponent-games');
         const navbarComponentCreateGames = screen.getByTestId('navbarComponent-createGames');
         const navbarComponentHow = screen.getByTestId('navbarComponent-how');
+        const navbarComponentLogout = screen.getByTestId('navbarComponent-logout')
 
         expect(navbarComponentTitle).toHaveTextContent('PokerProject');
         expect(navbarComponentGames).toHaveTextContent('Games');
         expect(navbarComponentCreateGames).toHaveTextContent('Create Game');
         expect(navbarComponentHow).toHaveTextContent('How to play?');
+        expect(navbarComponentLogout).toHaveTextContent('Logout');
+        expect(navbarComponentLogout).toBeEnabled();
 });

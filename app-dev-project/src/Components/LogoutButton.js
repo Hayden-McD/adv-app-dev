@@ -22,11 +22,9 @@ const LogoutButton = ({
                     await signOut(auth)
                         .then((res) => {
                             console.log(res.status);
-                            if (res.status === 'ok') {
                                 setUser(null);
                                 setIsLoggedIn(false);
                                 history.replace(routes.LOGIN);
-                            }
                         })
                 }}>
                 Logout

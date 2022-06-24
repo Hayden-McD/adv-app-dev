@@ -24,7 +24,7 @@ test('Should render create game component', () => {
         expect(createGameComponentButton).toBeEnabled();
 });
 
-test('Can edit create game text inputs and press button', () => {
+test('Can edit create game text inputs', () => {
     const nameInput = "test game";
     const passwordInput = "testpass";
 
@@ -41,7 +41,6 @@ test('Can edit create game text inputs and press button', () => {
 
         fireEvent.change(createGameComponentNameInput,{target: {value: nameInput}})
         fireEvent.change(createGameComponentPasswordInput,{target: {value: passwordInput}})
-        fireEvent.click(createGameComponentButton)
 
         expect(createGameComponentNameInput.value).toBe('test game')
         expect(createGameComponentPasswordInput.value).toBe('testpass')

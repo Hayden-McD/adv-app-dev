@@ -1,44 +1,34 @@
 import React, { useRef, useState } from "react";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, collection, onSnapshot, setDoc, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { Form, Alert } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
 const Game = ({ game, auth }) => {
-  const playerIds = [];
-  const playerNames = [];
   const passwordRef = useRef();
   const [isError, setIsError] = useState(null);
   const history = useHistory();
+  const [players, setPlayers] = useState([]);
+  const playerIDs = [];
+  const playersArray = [];
 
-  game.players.forEach((player) => {
-    playerIds.push(player.uid);
-    playerNames.push(player.Displayname)
+  const playerRef = collection(db, 'Games', game.id, 'players');
+  onSnapshot(playerRef, (snapshot) => {
+    snapshot.docs.forEach((doc) => {
+      playersArray.push({ ...doc.data(), id: doc.id});
+    })
+    setPlayers(playersArray);
+    return players;
   });
-
-  console.log(playerNames)
-  console.log(playerIds)
-
-  async function addPlayer() {
-    const docRef = await updateDoc(doc(db, 'Games', game.id), { 
-    players: arrayUnion([{uid: auth.currentUser.uid, name: auth.currentUser.displayName }])
-  }, 
-  {merge: true})
-  }
 
   function joinGame() {
     setIsError(false);
     if (passwordRef.current.value === game.password) {
       setIsError(false);
       console.log("correct password");
-      if (playerIds.includes(auth.currentUser.uid)) {
-        console.log("User is already in the game");
-        setIsError("You are already in this game")
-      } else {
-          addPlayer();
+        addPlayer();
         console.log("User has Joined the game");
         history.replace(`/game/${game.id}`)
-      }
     } else if (passwordRef.current.value === "") {
       setIsError("Password empty");
       console.log(isError)
@@ -48,6 +38,15 @@ const Game = ({ game, auth }) => {
     }
   }
 
+  // Adds the player to the game in firestore.
+  async function addPlayer() {
+    await setDoc(doc(db, 'Games', game.id, 'players', auth.currentUser.uid),
+    {
+        name: auth.currentUser.displayName,
+        uid: auth.currentUser.uid,
+    });
+  }
+
   return (
     <>
       {!game.gameOver && (
@@ -55,9 +54,9 @@ const Game = ({ game, auth }) => {
           <div className="gameName">{game.gameName}</div>
           <div className="gamePlayers">
             <div>Players: </div>
-            {playerNames.map((playerNames) => {
+            {players.map((players) => {
               return (
-                <p key={playerNames}>{playerNames}</p>
+                <p key={players.uid}>{players.name}</p>
               );
             })}
           </div>
