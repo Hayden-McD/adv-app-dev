@@ -3,8 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { auth } from './firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onIdTokenChanged } from 'firebase/auth';
 import { useState } from 'react';
+import { useCookies } from 'react-cookie';
 // Pages
 import Homepage from "./Routes/Homepage";
 import SignupPage from "./Routes/SignupPage";
@@ -21,15 +22,15 @@ const App = () => {
   const [authError, setAuthError] = useState(null);
 
   try {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsLoggedIn(true);
-        setUser(user.currentUser);
-        setAuthError(null);
-      } else {
-        setIsLoggedIn(false);
-        setUser(null);
-      }
+    onIdTokenChanged(auth, (user) => {
+        if (user) {
+            setIsLoggedIn(true);
+            setUser(user.currentUser);
+            setAuthError(null);
+        } else {
+            setIsLoggedIn(false);
+            setUser(null);
+        }
     });
   } catch (error) {
     setUser(null);
