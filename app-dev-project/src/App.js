@@ -1,11 +1,10 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { auth } from './firebase';
-import { onIdTokenChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { useState } from 'react';
-import { useCookies } from 'react-cookie';
 // Pages
 import Homepage from "./Routes/Homepage";
 import SignupPage from "./Routes/SignupPage";
@@ -22,15 +21,15 @@ const App = () => {
   const [authError, setAuthError] = useState(null);
 
   try {
-    onIdTokenChanged(auth, (user) => {
-        if (user) {
-            setIsLoggedIn(true);
-            setUser(user.currentUser);
-            setAuthError(null);
-        } else {
-            setIsLoggedIn(false);
-            setUser(null);
-        }
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLoggedIn(true);
+        setUser(user.currentUser);
+        setAuthError(null);
+      } else {
+        setIsLoggedIn(false);
+        setUser(null);
+      }
     });
   } catch (error) {
     setUser(null);
@@ -51,6 +50,7 @@ const App = () => {
           <Switch>
               {/* Route for sign up page */}
               <Route exact path='/signup'>
+              {isLoggedIn === true ? <Redirect to="/" /> : null}
                   <SignupPage
                       authError={authError}
                       isLoggedIn={isLoggedIn}
@@ -63,6 +63,7 @@ const App = () => {
 
               {/* Route for home page */}
               <Route exact path='/login'>
+              {isLoggedIn === true ? <Redirect to="/" /> : null}
                   <LoginPage
                       authError={authError}
                       isLoggedIn={isLoggedIn}

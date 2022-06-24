@@ -41,9 +41,6 @@ const SignupComponent = ({
             await createUserWithEmailAndPassword(auth, email, password)
                 .then((User) => {
                     setUser(User.user);
-                    updateProfile(User.user.uid, {
-                        displayName: displayNameRef.current.value,
-                    });
                 })
                 .then(() => {
                     setDoc(
@@ -57,11 +54,18 @@ const SignupComponent = ({
                         { merge: true }
                     );
                 }).finally(() => {
+                    addDisplayName();
                     history.replace(routes.HOME);
                 });
         } catch (error) {
             setAuthError(error.message);
         }
+    }
+
+    function addDisplayName() {
+        updateProfile(auth.currentUser, {
+            displayName: displayNameRef.current.value,
+        });
     }
 
     return (

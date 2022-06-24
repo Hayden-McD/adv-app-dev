@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useHistory } from "react-router-dom";
 
@@ -9,24 +9,24 @@ const CreateGameComponent = ({ authError, isLoggedIn, user, auth }) => {
     const passwordRef = useRef();
     const history = useHistory();
     const [gameCreated, setGameCreated] = useState("");
+    const gameName = "";
 
-    async function handleSubmit(e) {
+    async function handleSubmit(e, game) {
         setGameCreated("Game is being created... please wait")
         e.preventDefault();
-        try {
-            const docRef = await addDoc(collection(db, 'Games'), {
-                gameName: nameRef.current.value,
-                password: passwordRef.current.value,
-                createdBy: auth.currentUser.displayName,
-                joinable: true,
-                gameOver: false,
-                players: [{uid: auth.currentUser.uid, Displayname: auth.currentUser.displayName }]
-            });
-            console.log('Document written with ID: ', docRef.id);
-        } catch (e) {
-            console.error('Error adding document: ', e);
-        }
-        setGameCreated("Game has been created")
+
+        game = await addDoc(collection(db, 'Games'), {
+            gameName: nameRef.current.value,
+            password: passwordRef.current.value,
+            createdBy: auth.currentUser.displayName,
+            joinable: true,
+            gameOver: false
+        });
+        await setDoc(doc(db, 'Games', game.id, 'players', auth.currentUser.uid),
+        {
+            name: auth.currentUser.displayName,
+            uid: auth.currentUser.uid,
+        });
         history.replace('/')
     }
 

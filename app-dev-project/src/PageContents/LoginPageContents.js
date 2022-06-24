@@ -11,7 +11,7 @@ const LoginPageContents = ({
     auth
 }) => {
     return (
-        <Container className='align-items-center justify-content-center'>
+        <Container className='d-felx align-items-center justify-content-center'>
             <div className='w-80'>
                 <LoginComponent
                     authError={authError}

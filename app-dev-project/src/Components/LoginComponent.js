@@ -50,20 +50,21 @@ const LoginComponent = ({
                         <Alert variant='danger'>{authError}</Alert>
                     )}
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group id='email' data-testid="loginComponent-emailInput">
+                        <Form.Group id='email' data-testid="loginComponent-email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control
                                 type='email'
                                 ref={emailRef}
                                 required
-                            />
+                                data-testid="loginComponent-emailInput"/>
                         </Form.Group>
-                        <Form.Group id='password' data-testid="loginComponent-passwordInput">
+                        <Form.Group id='password' data-testid="loginComponent-password">
                             <Form.Label>Password</Form.Label>
                             <Form.Control
                                 type='password'
                                 ref={passwordRef}
                                 required
+                                data-testid="loginComponent-passwordInput"
                             />
                         </Form.Group>
                         <Button className='w-100' type='submit' data-testid="loginComponent-button">
