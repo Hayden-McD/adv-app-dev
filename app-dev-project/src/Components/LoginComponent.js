@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { routes } from '../Routes/routePaths';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useHistory } from 'react-router-dom';
+import { auth } from '../firebase';
 
 const LoginComponent = ({
     authError,
@@ -44,35 +45,35 @@ const LoginComponent = ({
         <>
             <Card>
                 <Card.Body>
-                    <h2 className='text-center mb-4'>Log In</h2>
+                    <h2 className='text-center mb-4' data-testid="loginComponent-title">Log In</h2>
                     {authError && (
                         <Alert variant='danger'>{authError}</Alert>
                     )}
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group id='email'>
+                        <Form.Group id='email' data-testid="loginComponent-email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control
                                 type='email'
                                 ref={emailRef}
                                 required
-                            />
+                                data-testid="loginComponent-emailInput"/>
                         </Form.Group>
-                        <Form.Group id='password'>
+                        <Form.Group id='password' data-testid="loginComponent-password">
                             <Form.Label>Password</Form.Label>
                             <Form.Control
                                 type='password'
                                 ref={passwordRef}
                                 required
+                                data-testid="loginComponent-passwordInput"
                             />
                         </Form.Group>
-                        {/* <Button disabled={loading} className="w-100" type="submit"> */}
-                        <Button className='w-100' type='submit'>
+                        <Button className='w-100' type='submit' data-testid="loginComponent-button">
                             Log In
                         </Button>
                     </Form>
                 </Card.Body>
             </Card>
-            <div className='w-100 text-center mt-2'>
+            <div className='w-100 text-center mt-2' data-testid="loginComponent-signupText">
                 Don't have an account? <Link to={routes.SIGNUP}> Sign Up </Link>
             </div>
         </>

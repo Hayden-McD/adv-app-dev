@@ -1,9 +1,17 @@
 import React from "react";
+import { auth } from "../firebase";
 
-const HowToPlayPage = ({user}) => {
-  return (
-    <div>HowToPlayPage</div>
-  )
+
+const HowToPlayPage = () => {
+  const user = auth.currentUser
+
+  if (user) {
+    return (
+      <div>HowToPlayPage</div>
+    )
+  } else {
+    //redirect
+  }
 }
 
 export default HowToPlayPage
