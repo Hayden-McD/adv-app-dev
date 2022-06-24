@@ -27,7 +27,7 @@ const CreateGameComponent = ({ authError, isLoggedIn, user, auth }) => {
             console.error('Error adding document: ', e);
         }
         setGameCreated("Game has been created")
-        history.replace('/home')
+        history.replace('/')
     }
 
     return (

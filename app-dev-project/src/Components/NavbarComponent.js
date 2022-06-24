@@ -6,7 +6,7 @@ import LogoutButton from "./LogoutButton";
 const NavbarComponent = ({user, isLoggedIn, authError, setUser, setIsLoggedIn, auth}) => {
   
   return (
-    <Navbar bg="dark" variant="dark" >
+    <Navbar bg="dark" variant="dark" data-testid="navbarComponent">
       <Container>
         <Navbar.Brand href={routes.HOME} data-testid="navbarComponent-title">PokerProject</Navbar.Brand>
         {isLoggedIn ? (

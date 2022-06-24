@@ -11,6 +11,7 @@ const HomepageContent = ({ authError, isLoggedIn, user, auth }) => {
     const [loadError, setLoadError] = useState(null);
 
     const getGame = useCallback(async () => {
+        setIsLoading(true)
         let gamesArray = [];
         const q = query(collection(db, 'Games'));
         await getDocs(q)
@@ -26,12 +27,13 @@ const HomepageContent = ({ authError, isLoggedIn, user, auth }) => {
             .catch((err) => {
                 console.log(err);
                 setLoadError(err.message);
+                console.log(loadError)
             })
         await setGames(gamesArray);
         games.length > 0 ? setGamesReady(true) : setGamesReady(false);
         setIsLoading(false);
         return;
-    }, []);
+    }, [games.length, loadError]);
 
     useEffect(() => {
         getGame();
@@ -40,14 +42,13 @@ const HomepageContent = ({ authError, isLoggedIn, user, auth }) => {
     return (
     <div className='container'>
         {isLoading ?? <LoadingPage />}
-        {gamesReady ?? (
             <div className='gameContainer'>
-                yayaya
                 {games.map((game, index) => {
-                    <Game game={game} key={index} auth={auth} />;
+                    return (
+                    <Game game={game} key={index} auth={auth} />
+                    );
                 })}
             </div>
-        )}
     </div>
     );
 };

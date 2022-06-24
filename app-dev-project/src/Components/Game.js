@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { doc, updateDoc, arrayUnion, collection } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../firebase";
 import { Form, Alert } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
@@ -13,8 +13,11 @@ const Game = ({ game, auth }) => {
 
   game.players.forEach((player) => {
     playerIds.push(player.uid);
-    playerNames.push(player.name)
+    playerNames.push(player.Displayname)
   });
+
+  console.log(playerNames)
+  console.log(playerIds)
 
   async function addPlayer() {
     const docRef = await updateDoc(doc(db, 'Games', game.id), { 

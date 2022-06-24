@@ -1,6 +1,6 @@
 import { render, screen, cleanup } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import SignupComponent from '../../Components/SignupComponent';
+import SignupComponent from '../SignupComponent';
 
 afterEach(() => {
     cleanup();

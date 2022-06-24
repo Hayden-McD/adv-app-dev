@@ -1,6 +1,6 @@
 import { render, screen, cleanup } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import LoginComponent from '../LoginComponent';
+import LoginPage from '../../Routes/LoginPage';
 
 afterEach(() => {
     cleanup();
@@ -9,7 +9,7 @@ afterEach(() => {
 test('Should render login component', () => {
     render(
         <Router>
-            <LoginComponent />
+            <LoginPage />
         </Router>
     );
     
