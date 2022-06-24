@@ -10,7 +10,6 @@ import Homepage from "./Routes/Homepage";
 import SignupPage from "./Routes/SignupPage";
 import LoginPage from "./Routes/LoginPage";
 import HowToPlayPage from "./Routes/HowToPlayPage";
-import Error404Page from "./Routes/Error404Page";
 import CreateGamePage from "./Routes/CreateGamePage";
 
 // Components
@@ -27,7 +26,7 @@ const App = () => {
         setIsLoggedIn(true);
         setUser(user.currentUser);
         setAuthError(null);
-      }else {
+      } else {
         setIsLoggedIn(false);
         setUser(null);
       }
@@ -40,7 +39,7 @@ const App = () => {
 
   return (
       <Router>
-          <Navbar
+           <Navbar
               authError={authError}
               isLoggedIn={isLoggedIn}
               auth={auth}
@@ -58,7 +57,6 @@ const App = () => {
                       setIsLoggedIn={setIsLoggedIn}
                       setAuthError={setAuthError}
                       auth={auth}
-                      user={user}
                   />
               </Route>
 
@@ -101,15 +99,6 @@ const App = () => {
                       isLoggedIn={isLoggedIn}
                       user={user}
                       auth={auth}
-                  />
-              </Route>
-
-              {/* Route for the 404 error page */}
-              <Route>
-                  <Error404Page
-                      authError={authError}
-                      isLoggedIn={isLoggedIn}
-                      user={user}
                   />
               </Route>
           </Switch>

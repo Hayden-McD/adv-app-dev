@@ -11,6 +11,7 @@ const HomepageContent = ({ authError, isLoggedIn, user, auth }) => {
     const [loadError, setLoadError] = useState(null);
 
     const getGame = useCallback(async () => {
+        setIsLoading(true)
         let gamesArray = [];
         const q = query(collection(db, 'Games'));
         await getDocs(q)
@@ -32,7 +33,7 @@ const HomepageContent = ({ authError, isLoggedIn, user, auth }) => {
         await setGames(gamesArray);
         setIsLoading(false);
         return;
-    }, []);
+    }, [games.length, loadError]);
 
     useEffect(() => {
         getGame()
